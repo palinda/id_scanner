@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Vibration, StyleSheet } from 'react-native';
-import { Constants, Camera, FileSystem, Permissions, BarCodeScanner } from 'expo';
+import { Constants, Camera, FileSystem, Permissions } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { cv } from 'opencv.js';
 
@@ -133,39 +133,29 @@ export default class SimpleCamera extends React.Component {
       return (
         <View style={{ flex: 1 }}>
         
-        <BarCodeScanner
-        onBarCodeRead={this._handleBarCodeRead}
-        style={StyleSheet.absoluteFill}
-      />
+          <Camera style={{ flex: 1 }} 
+            type={this.state.type}  
+            faceDetectionClassifications={this.state.faceDetectionClassifications}
+            onFacesDetected={this.onFacesDetected}
+            style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+                alignSelf: 'flex-end'
+              }}
+            ref={this.setCamera}>
+            <View style={{
+            flex: 1,
+            backgroundColor: 'transparent',
+            flexDirection: 'row',
+            alignSelf: 'flex-end',
+            justifyContent: 'center'
+            }}>
+            { this.state.passportOk && <Ionicons name="ios-checkmark-circle-outline" size={70} color="white" />}
+            </View>
+          </Camera>
         </View>
       );
     }
   }
 }
-// <TouchableOpacity            
-//               onPress={this.takePicture.bind(this)}>
-//               <Ionicons name="ios-radio-button-on" size={70} color="white" />
-//             </TouchableOpacity>
-
-
-// <Camera style={{ flex: 1 }} 
-// type={this.state.type}  
-// faceDetectionClassifications={this.state.faceDetectionClassifications}
-// onFacesDetected={this.onFacesDetected}
-// style={{
-//     flex: 1,
-//     backgroundColor: 'transparent',
-//     flexDirection: 'row',
-//     alignSelf: 'flex-end'
-//   }}
-// ref={this.setCamera}>
-// <View style={{
-// flex: 1,
-// backgroundColor: 'transparent',
-// flexDirection: 'row',
-// alignSelf: 'flex-end',
-// justifyContent: 'center'
-// }}>
-// { this.state.passportOk && <Ionicons name="ios-checkmark-circle-outline" size={70} color="white" />}
-// </View>
-// </Camera>
